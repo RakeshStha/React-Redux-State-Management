@@ -1,15 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {buyBook} from '../redux';
+import {connect} from 'react-redux';
 
-export class Menu extends Component {
-    render() {
+function Menu(props){
+
         return (
             <div>
-                <h1>Order Books</h1>
-                <button>Buy Books</button>
+                <h1>Order Books - {props.Book}</h1>
+                <button onClick={props.buyBooks}>Buy Books</button>
             </div>
         )
     }
+
+
+const mapStoretoProps=(state)=>{
+    return{
+        Book:state.Book
+    }
 }
 
-export default Menu
+const mapDispatchtoProps=(dispatch)=>{
+    return{
+        buyBooks:function(){
+            dispatch(buyBook());
+        }
+    }
+}
+
+export default connect(mapStoretoProps, mapDispatchtoProps)(Menu);
